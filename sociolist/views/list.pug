@@ -1,0 +1,57 @@
+doctype html
+html(lang='en')
+	head
+		title sociolist
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.min.css')
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+		link(rel='stylesheet', href='/stylesheets/cover.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+		script(src='/bootstrap/js/bootstrap.min.js')
+		script(src='/socket.io/socket.io.js')
+		script.
+			var socket = io();
+			socket.emit('room', '#{id}');
+			
+			socket.on('newcollab-name', function(listname) {
+				document.getElementById('listname').innerHTML = listname;
+			});
+			
+			socket.on('newcollab', function(item) {
+				var li = document.createElement('li');  
+				li.setAttribute('class', 'list-group-item');
+				li.innerHTML = item;
+				document.getElementById('items').appendChild(li);
+			});
+			
+			socket.on('added', function(added) {
+				var li = document.createElement('li');  
+				li.setAttribute('class', 'list-group-item');
+				li.innerHTML = added;
+				document.getElementById('items').appendChild(li);
+			});
+			
+			function addItem() {
+				var li = document.createElement('li');  
+				li.setAttribute('class', 'list-group-item');
+				var input = document.getElementById('item');
+				socket.emit('add', input.value);
+				li.innerHTML = input.value;
+				input.value = '';
+				document.getElementById('items').appendChild(li);
+			 }
+body
+	div('container')
+		h1(id='listname') #{name}
+		br
+		br
+		form(class='form-group' method='POST' action='/add')
+			input(class='form-control' type='text' placeholder='Add an item' name='item' id = 'item')
+			input(class='form-control' type='hidden' name='id' value=id)
+			br
+			button(class='btn btn-primary-outline' type='submit' onclick='addItem()') Add
+		ul(class='list-group')#items
+		
+		
+		
+		

@@ -1,0 +1,26 @@
+{
+  "name": "sociolist",
+  "version": "0.0.1",
+  "description": "short lived shared lists",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.15.2",
+    "pug": "^2.0.0-rc.4",
+    "pug-bootstrap": "^0.0.15",
+    "socket.io": "^2.0.3",
+    "cookie-parser": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express.js",
+    "socket.io",
+    "shared",
+    "lists"
+  ],
+  "author": "Anuj Bhatt",
+  "license": "ISC"
+}
